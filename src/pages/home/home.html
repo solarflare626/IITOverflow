@@ -1,14 +1,89 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
+<ion-header >
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+  <ion-navbar color="primary">
+    <ion-title >
+      IITOverflow
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content id="homeScroll">
+<ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+ </ion-refresher>
+ <ion-list >
+   	<ion-item *ngFor="let q of questions">
+		    <ion-card>
+
+		  <ion-item>
+		    <ion-avatar item-start>
+		      <img src="assets/imgs/marty-avatar.png">
+		    </ion-avatar>
+		    <h2>Marty McFly</h2>
+		    <p>November 5, 1955</p>
+		  </ion-item>
+
+		  <img src="assets/imgs/advance-card-bttf.png">
+
+		  <ion-card-content text-wrap>
+		    {{q}} Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.
+		  </ion-card-content>
+
+		  <ion-row>
+		    <ion-col>
+		      <button ion-button icon-left clear small>
+		        <ion-icon name="thumbs-up"></ion-icon>
+		        <div>12 Likes</div>
+		      </button>
+		    </ion-col>
+		    <ion-col>
+		      <button ion-button icon-left clear small>
+		        <ion-icon name="text"></ion-icon>
+		        <div>4 Comments</div>
+		      </button>
+		    </ion-col>
+		    <ion-col>
+		      <button ion-button icon-left clear small>
+		        <ion-icon name="md-more"></ion-icon>
+		        <div>More</div>
+		      </button>
+		    </ion-col>
+		    <!--<ion-col center text-center>
+		      <ion-note>
+		        11h ago
+		      </ion-note>
+		    </ion-col>-->
+		  </ion-row>
+
+		</ion-card>
+
+	</ion-item>
+
+	
+ </ion-list>
+
+ <div *ngIf="noMoreItemsAvailable" center text-center><span >No more to show</span>
+
+ </div>
+<ion-row *ngIf="reachedTen && !noMoreItemsAvailable" justify-content-center align-items-center>
+	<button ion-button icon-left>
+	  <ion-icon name="previous"></ion-icon>
+	  Previous
+	</button>
+
+	<!-- Float the icon right -->
+	<button ion-button icon-right (click)="next($event)">
+	  Next
+	  <ion-icon name="next"></ion-icon>
+	</button>
+</ion-row>
+
+ <ion-infinite-scroll   *ngIf="!noMoreItemsAvailable && !reachedTen" (ionInfinite)="loadMore($event)"  distance="10%">
+   <ion-infinite-scroll-content></ion-infinite-scroll-content>
+ </ion-infinite-scroll>
+
+
+
 </ion-content>
+
